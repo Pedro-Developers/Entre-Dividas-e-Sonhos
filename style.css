@@ -11,8 +11,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #121213 url("imagem/output-onlinegiftools.gif") center/cover no-repeat;
-    color: #fff;
+    background-image: url("imagem/output-onlinegiftools.gif");      
+    background-position: center;     
+    background-repeat: no-repeat;    
+    background-attachment: fixed;    
+}
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+h1, h2, h3, h4, h5, h6, p {
+    color: white;
 }
 
 .app {
@@ -95,5 +110,57 @@ body {
 }
 
 .menu-jogo button:hover {
-    background: #2284c2;
+    background: #22c285;
+}
+
+/* Seu estilo normal para alinhar os botões e o fundo preto */
+.painel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(10, 25, 15, 0.95); /* O fundo escuro que você já tem */
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Essa é a classe essencial que o JavaScript vai injetar/remover */
+.hidden {
+  display: none !important;
+}
+.texto-rpg {
+    background-color: rgba(10, 25, 15, 0.95) !important;
+    border: 2px solid #6bc995 !important;
+    border-radius: 10px;
+    padding: 18px;
+    width: 100%;
+    max-width: 380px;
+    min-height: 110px;
+    color: #ffffff !important; /* Texto branco brilhante para leitura fácil */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: center;
+    margin: 10px 0 20px 0;
+    box-shadow: 0 0 12px rgba(107, 201, 149, 0.5);
+}
+
+/* --- MODO HISTÓRIA (FUNDO 100% ESCURO) --- */
+
+/* Faz a camada preta cobrir totalmente a imagem e o ecrã CRT */
+body.modo-historia::before {
+    background-color: #000000 !important;
+    z-index: 1;
+}
+
+/* Garante que o menu do jogo fica por cima do fundo preto */
+body.modo-historia .app {
+    position: relative;
+    z-index: 2;
+}
+
+/* Remove a moldura do painel na introdução para deixar APENAS a caixa de texto em destaque */
+#menu-novo-jogo {
+    background: transparent !important;
+    box-shadow: none !important;
 }
