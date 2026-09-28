@@ -1,8 +1,12 @@
+/* ===================================================
+   GERENCIAMENTO DE PLATAFORMA E MENUS
+   =================================================== */
 const plataformas = document.querySelectorAll('input[name="plataforma"]');
 const seletorPlataforma = document.getElementById('seletor-plataforma');
 const menuPrincipal = document.getElementById('menu-principal'); 
 const plataformaSelecionadaTexto = document.getElementById('plataforma-selecionada');
 
+// Clique na escolha de plataforma (Computador / Celular)
 plataformas.forEach((radio) => {
   radio.addEventListener('change', () => {
     if (!radio.checked) return;
@@ -10,108 +14,89 @@ plataformas.forEach((radio) => {
     const plataformaSelecionada = radio.value;
     const nomePlataforma = plataformaSelecionada === 'computador' ? 'Computador' : 'Celular';
 
-    console.log('Plataforma escolhida:', plataformaSelecionada);
-
     seletorPlataforma.classList.add('hidden');
     menuPrincipal.classList.remove('hidden'); 
     plataformaSelecionadaTexto.textContent = nomePlataforma; 
   });
 });
 
-// Função genérica para alternar telas
+// Função para abrir menus e ocultar os outros
 function abrirMenu(idDoMenu) {
-  let paineis = document.querySelectorAll('.painel');
-  
-  paineis.forEach(function(painel) {
-    painel.classList.add('hidden');
-  });
+  const paineis = document.querySelectorAll('.painel');
+  paineis.forEach((painel) => painel.classList.add('hidden'));
 
-  document.getElementById(idDoMenu).classList.remove('hidden');
+  const menuAlvo = document.getElementById(idDoMenu);
+  if (menuAlvo) {
+    menuAlvo.classList.remove('hidden');
+  }
 }
 
+// Voltar para o menu principal
 function voltarPrincipal() {
+  document.body.classList.remove('modo-historia');
   abrirMenu('menu-principal');
 }
 
+// Sair do jogo
 function fecharJogo() {
   alert("Obrigado por jogar!");
   window.close(); 
 }
 
 /* ===================================================
-   SISTEMA DE LORE / INTRODUÇÃO (NOVO JOGO)
+   FLUXO DA DEMO (RPG DE TURNO 2D - MUNDO LINEAR)
    =================================================== */
 const textosIntro = [
-    "Final da década de 1980. O país vive a 'Década Perdida' — marcada por hiperinflação, desemprego e incertezas.",
-    "Na cidade de Nova Esperança, os preços mudam a cada hora e os salários perdem o valor antes do fim do dia.",
-    "Meu nome é Lucas. Desde que meu pai desapareceu após se envolver com dívidas perigosas, trabalho em pequenos serviços para ajudar minha mãe e meu avô.",
-    "Mas algo estranho está acontecendo... Moradores e comerciantes estão presos em ciclos financeiros sem fim, perdendo todos os seus sonhos.",
-    "Existe uma força oculta por trás disso: 'A Fonte'. Ela se alimenta da ganância, do consumismo impulsivo e da desinformação.",
-    "Para salvar minha família e Nova Esperança, preciso ajudar a cidade a tomar o controle de suas vidas..."
+    // 1. Tutorial da Exploração Linear 2D
+    "Bem-vindo a Nova Esperança (1980).\n\n[TUTORIAL 2D]: Use 'A / D' ou as 'Setas' para andar pelo caminho linear da cidade. Pressione 'E' para conversar ou entrar em locais.",
+    
+    // 2. Lore / Contexto do Pai
+    "A vida da minha família mudou da noite para o dia... Meu pai desapareceu misteriosamente, deixando para trás apenas contas acumuladas e dívidas perigosas.",
+    
+    // 3. Trabalho & Tutorial de Batalha por Turno
+    "Para ajudar minha mãe, comecei a trabalhar como entregador de jornais e fazendo pequenos serviços.\n\n[TUTORIAL DE TURNO]: Nas batalhas, você e os inimigos agem por turnos. Escolha entre Atacar, Economizar ou Usar Habilidades de Gestão.",
+    
+    // 4. Apresentação dos Inimigos do Jogo
+    "Pelas ruas, enfrentei personificações da crise: o 'Consumista' tentando me fazer gastar sem pensar, e o 'Sr. Juros' acumulando dívidas a cada turno...",
+    
+    // 5. Percepção da Fonte
+    "Percebi que os moradores de Nova Esperança estão presos num ciclo repetitivo. 'A Fonte' se alimenta do desespero e da desinformação de todos nós.",
+    
+    // 6. Voltar a Casa (Ponto de Descanso/Save)
+    "Depois das entregas, volto para casa. O almoço em família recupera minha energia e me prepara para os próximos desafios.",
+    
+    // 7. A Escola (Início do Jogo / Desbloqueio da Árvore de Habilidades)
+    "Agora é hora de ir para a Escola. É lá que vou aprender novas habilidades por turno para derrotar os vilões financeiros e salvar a cidade!"
 ];
 
 let linhaAtual = 0;
-const caixaTexto = document.getElementById('caixa-texto-intro');
-const btnAvancar = document.getElementById('btn-avancar-intro');
 
 function iniciarNovoJogo() {
-    linhaAtual = 0;
-    caixaTexto.textContent = textosIntro[linhaAtual];
-    btnAvancar.textContent = "Continuar";
-    abrirMenu('menu-novo-jogo');
-}
+    const caixaTexto = document.getElementById('caixa-texto-intro');
+    const btnAvancar = document.getElementById('btn-avancar-intro');
 
-function avancarIntro() {
-    linhaAtual++;
-    
-    if (linhaAtual < textosIntro.length) {
-        caixaTexto.textContent = textosIntro[linhaAtual];
-        
-        if (linhaAtual === textosIntro.length - 1) {
-            btnAvancar.textContent = "Começar Aventura";
-        }
-    } else {
-        // Quando acabar a introdução, aqui será a transição para a gameplay (GameMaker / Canvas)
-        alert("Educação financeira não é sobre ficar rico. É sobre ter liberdade para continuar sonhando.\n\n[Carregando o jogo...]");
-        voltarPrincipal(); 
-    }
-}
-/* ===================================================
-   SISTEMA DE LORE / INTRODUÇÃO (NOVO JOGO)
-   =================================================== */
-
-function iniciarNovoJogo() {
     linhaAtual = 0;
-    caixaTexto.textContent = textosIntro[linhaAtual];
-    btnAvancar.textContent = "Continuar";
+    if (caixaTexto) caixaTexto.textContent = textosIntro[linhaAtual];
+    if (btnAvancar) btnAvancar.textContent = "Continuar";
     
-    // 1. Liga o fundo 100% preto
     document.body.classList.add('modo-historia');
-    
     abrirMenu('menu-novo-jogo');
 }
 
-function voltarPrincipal() {
-    // 2. Desliga o fundo preto ao voltar para o menu
-    document.body.classList.remove('modo-historia');
-    
-    abrirMenu('menu-principal');
-}
-
 function avancarIntro() {
+    const caixaTexto = document.getElementById('caixa-texto-intro');
+    const btnAvancar = document.getElementById('btn-avancar-intro');
+
     linhaAtual++;
     
     if (linhaAtual < textosIntro.length) {
-        caixaTexto.textContent = textosIntro[linhaAtual];
+        if (caixaTexto) caixaTexto.textContent = textosIntro[linhaAtual];
         
-        if (linhaAtual === textosIntro.length - 1) {
-            btnAvancar.textContent = "Começar Aventura";
+        if (linhaAtual === textosIntro.length - 1 && btnAvancar) {
+            btnAvancar.textContent = "Entrar na Escola (Iniciar Demo)";
         }
     } else {
-        alert("Educação financeira não é sobre ficar rico. É sobre ter liberdade para continuar sonhando.\n\n[Carregando o jogo...]");
-        
-        // 3. Remove o fundo preto caso o jogo recarregue ou volte ao menu
-        document.body.classList.remove('modo-historia');
+        alert("Fim da Introdução!\n\nPassando o controle para o motor 2D do GameMaker (Mundo Linear + Batalhas por Turno).");
         voltarPrincipal(); 
     }
 }

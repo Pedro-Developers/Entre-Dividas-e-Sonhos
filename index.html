@@ -9,14 +9,14 @@
 <body>
     <main class="app">
         <!-- Tela 1: Seleção de plataforma -->
-        <section id="seletor-plataforma" class="seletor-plataforma">
-            <h1>Entre dividas e sonhos</h1>
-            <h3>Selecione a plataforma que você está jogando:</h3>
+        <section id="seletor-plataforma" class="seletor-plataforma painel">
+            <h1>Entre Dívidas e Sonhos</h1>
+            <h3>Selecione a plataforma em que você está jogando:</h3>
 
             <div class="opcoes-plataforma">
                 <label class="opcao-plataforma">
                     <input type="radio" name="plataforma" value="computador">
-                    <img src="/imagem/monitor-vetorial-pc-rato-teclado-design-vetorial_1228438-573-removebg-preview.png" alt="Computador">
+                    <img src="imagem/monitor-vetorial-pc-rato-teclado-design-vetorial_1228438-573-removebg-preview.png" alt="Computador">
                 </label>
 
                 <label class="opcao-plataforma">
@@ -28,10 +28,9 @@
 
         <!-- Tela 2: Menu Principal -->
         <section id="menu-principal" class="menu-jogo painel hidden">
-            <h2>Entre dividas e sonhos</h2>
+            <h2>Entre Dívidas e Sonhos</h2>
             <p>Jogando no: <span id="plataforma-selecionada"></span></p>
             
-            <!-- Agora o botão Jogar chama a introdução -->
             <button type="button" onclick="iniciarNovoJogo()">Jogar</button>
             <button type="button" onclick="abrirMenu('menu-carregar')">Carregar jogo</button>
             <button type="button" onclick="abrirMenu('menu-opcoes')">Opções</button>
@@ -64,7 +63,7 @@
         <section id="menu-novo-jogo" class="menu-jogo painel hidden">
             <h2>Nova Esperança - 1980</h2>
             <div id="caixa-texto-intro" class="texto-rpg">
-                <!-- O JavaScript injetará a história aqui -->
+                <!-- O JS injetará o texto aqui -->
             </div>
             
             <div class="controles-intro">

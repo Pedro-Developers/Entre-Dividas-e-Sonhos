@@ -15,7 +15,9 @@ body {
     background-position: center;     
     background-repeat: no-repeat;    
     background-attachment: fixed;    
+    background-size: cover;
 }
+
 body::before {
     content: "";
     position: fixed;
@@ -26,6 +28,7 @@ body::before {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: -1;
 }
+
 h1, h2, h3, h4, h5, h6, p {
     color: white;
 }
@@ -83,19 +86,14 @@ h1, h2, h3, h4, h5, h6, p {
     display: none !important;
 }
 
-.menu-jogo {
-    background: rgba(10, 10, 10, 0.75);
+.menu-jogo, .painel {
+    background: rgba(10, 10, 10, 0.85);
     padding: 30px 40px;
     border-radius: 16px;
     box-shadow: 0 12px 30px rgba(0,0,0,0.25);
-}
-
-.menu-jogo h2 {
-    margin-bottom: 8px;
-}
-
-.menu-jogo p {
-    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .menu-jogo button {
@@ -107,59 +105,45 @@ h1, h2, h3, h4, h5, h6, p {
     font-weight: bold;
     background: #6bc995;
     color: white;
+    font-size: 14px;
+    transition: background 0.2s;
 }
 
 .menu-jogo button:hover {
     background: #22c285;
 }
 
-/* Seu estilo normal para alinhar os botões e o fundo preto */
-.painel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: rgba(10, 25, 15, 0.95); /* O fundo escuro que você já tem */
-  border-radius: 10px;
-  padding: 20px;
-}
-
-/* Essa é a classe essencial que o JavaScript vai injetar/remover */
-.hidden {
-  display: none !important;
-}
+/* --- ESTILO DA CAIXA DE LORE / RPG --- */
 .texto-rpg {
-    background-color: rgba(10, 25, 15, 0.95) !important;
-    border: 2px solid #6bc995 !important;
+    background-color: rgba(5, 15, 10, 0.95);
+    border: 2px solid #6bc995;
     border-radius: 10px;
-    padding: 18px;
+    padding: 20px;
     width: 100%;
-    max-width: 380px;
-    min-height: 110px;
-    color: #ffffff !important; /* Texto branco brilhante para leitura fácil */
+    max-width: 420px;
+    min-height: 140px;
+    color: #ffffff;
     font-family: 'Courier New', Courier, monospace;
     font-size: 15px;
     font-weight: bold;
     line-height: 1.5;
-    text-align: center;
-    margin: 10px 0 20px 0;
-    box-shadow: 0 0 12px rgba(107, 201, 149, 0.5);
+    text-align: left;
+    white-space: pre-wrap; /* Preserva as quebras de linha \n */
+    margin: 15px 0;
+    box-shadow: 0 0 15px rgba(107, 201, 149, 0.4);
 }
 
 /* --- MODO HISTÓRIA (FUNDO 100% ESCURO) --- */
-
-/* Faz a camada preta cobrir totalmente a imagem e o ecrã CRT */
 body.modo-historia::before {
     background-color: #000000 !important;
     z-index: 1;
 }
 
-/* Garante que o menu do jogo fica por cima do fundo preto */
 body.modo-historia .app {
     position: relative;
     z-index: 2;
 }
 
-/* Remove a moldura do painel na introdução para deixar APENAS a caixa de texto em destaque */
 #menu-novo-jogo {
     background: transparent !important;
     box-shadow: none !important;
