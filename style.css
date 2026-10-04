@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+background-image: url("imagem/output-onlinegiftools.gif");      
+    background-position: center;     
+    background-repeat: no-repeat;    
+    background-attachment: fixed;    
+    background-size: cover;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+h1, h2, h3, h4, h5, h6, p {
+    color: white;
+}
+
+.app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.seletor-plataforma {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.menu-jogo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.opcoes-plataforma {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.opcao-plataforma input[type="radio"] {
+    display: none;
+}
+
+.opcao-plataforma img {
+    width: 150px;
+    height: auto;
+    cursor: pointer;
+    border: 3px solid transparent;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.opcao-plataforma img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.opcao-plataforma input[type="radio"]:checked + img {
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.menu-jogo, .painel {
+    background-color: rgba(5, 15, 10, 0.95);
+    border: 2px solid #6bc995;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 420px;
+    min-height: 140px;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: left;
+    white-space: pre-wrap; /* Preserva as quebras de linha \n */
+    margin: 15px 0;
+    box-shadow: 0 0 15px rgba(107, 201, 149, 0.4);
+}
+
+.menu-jogo button {
+    margin: 8px;
+    padding: 10px 18px;
+    border: none;
+    box-shadow: 0 0 15px rgba(107, 201, 149, 0.4);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    background: #6bc995;
+    color: white;
+    font-size: 14px;
+    transition: background 0.2s;
+ font-family: 'Courier New', Courier, monospace;
+}
+
+.menu-jogo button:hover {
+    background: #22c285;
+}
+
+/* --- ESTILO DA CAIXA DE LORE / RPG --- */
+.texto-rpg {
+    background-color: rgba(5, 15, 10, 0.95);
+    border: 2px solid #6bc995;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 420px;
+    min-height: 140px;
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-align: left;
+    white-space: pre-wrap; /* Preserva as quebras de linha \n */
+    margin: 15px 0;
+    box-shadow: 0 0 15px rgba(107, 201, 149, 0.4);
+}
+
+/* --- MODO HISTÓRIA (FUNDO 100% ESCURO) --- */
+body.modo-historia::before {
+    background-color: #000000 !important;
+    z-index: 1;
+}
+
+body.modo-historia .app {
+    position: relative;
+    z-index: 2;
+}
+
+#menu-novo-jogo {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+#jogo-rodando {
+    background: transparent !important;
+    box-shadow: none !important;
+background-image: url("");      
+    background-position: center;     
+    background-repeat: no-repeat;    
+    background-attachment: fixed;    
+    background-size: cover;
+}   
