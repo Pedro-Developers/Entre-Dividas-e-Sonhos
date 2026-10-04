@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entre Dívidas e Sonhos</title>
+    <link rel="icon" href="data:,">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -25,65 +26,18 @@
                 </label>
             </div>
         </section>
+  
 
-        <!-- Tela 2: Menu Principal -->
-        <section id="menu-principal" class="menu-jogo painel hidden">
-            <h2>Entre Dívidas e Sonhos</h2>
-            <p>Jogando no: <span id="plataforma-selecionada"></span></p>
-            
-            <button type="button" onclick="iniciarNovoJogo()">Jogar</button>
-            <button type="button" onclick="abrirMenu('menu-carregar')">Carregar jogo</button>
-            <button type="button" onclick="abrirMenu('menu-opcoes')">Opções</button>
-            <button type="button" onclick="abrirMenu('menu-creditos')">Créditos</button>
-            <button type="button" onclick="fecharJogo()">Sair</button>
-        </section>
-
-        <!-- Tela 3: Submenus -->
-        <section id="menu-carregar" class="menu-jogo painel hidden">
-            <h2>Carregar Jogo</h2>
-            <button type="button">Save 1</button>
-            <button type="button">Save 2</button>
-            <button type="button" onclick="voltarPrincipal()" class="btn-voltar">Voltar</button>
-        </section>
-
-        <section id="menu-opcoes" class="menu-jogo painel hidden">
-            <h2>Opções</h2>
-            <label for="inputVolume"><h4>Volume:</h4></label>
-            <input type="range" id="inputVolume" min="0" max="100" value="50">
-            <button type="button" onclick="voltarPrincipal()" class="btn-voltar">Voltar</button>
-            <label><h4>Graficos:</h4></label>
-            <select id="inputGraficos">
-                <option value="baixo">Baixo</option>
-                <option value="medio" selected>Médio</option>
-                <option value="alto">Alto</option>
-            </select>
-        </section>
-
-        <section id="menu-creditos" class="menu-jogo painel hidden">
-            <h2>Créditos</h2>
-            <p>Criado por: Pedro Henrique Parizotto (pedro-hparizotto@estudante.rs.gov.br)</p>
-            <button type="button" onclick="voltarPrincipal()" class="btn-voltar">Voltar</button>
-        </section>
-
-        <!-- Tela 4: Novo Jogo (Introdução da Lore) -->
-        <section id="menu-novo-jogo" class="menu-jogo painel hidden">
-            <h2>Nova Esperança - 1980</h2>
-            <div id="caixa-texto-intro" class="texto-rpg">
-                <!-- O JS injetará o texto aqui -->
-            </div>
-            
-            <div class="controles-intro">
-                <button type="button" id="btn-avancar-intro" onclick="avancarIntro()">Continuar</button>
-                <button type="button" onclick="voltarPrincipal()" class="btn-voltar">Pular</button>
-            </div>
-        </section>
-        <section>
-            <div id="Jogo-rodando" class="menu-jogo painel hidden">
-             <h5>Objetivo: Vá para a cozinha</h5>
-            <img src="imagem/sprite/db_player.ase" alt="Jogo Rodando" class="jogo-rodando">
-            </div>
-
-        </section>
+        <div id="vp" class="hidden"><div id="w">
+  <canvas id="c" width="640" height="360"></canvas>
+  <div id="hud" class="box"></div>
+<div id="shop" class="box"></div>
+<div id="cmd" class="box"><div id="log"></div><div class="bs">
+<button onclick="Cb.act(1)">1 Ataque</button><button onclick="Cb.act(2)">2 Habilidade</button><button onclick="Cb.act(3)">3 Item</button><button onclick="Cb.act(4)">4 Corrida</button></div></div>
+<div id="dlg" class="box"><div class="n"></div><div class="t"></div><div class="h">[ENTER]</div></div>
+<div id="crt"></div>
+<div id="ov"></div>
+</div></div>
     </main>
 
     <script src="script.js"></script>
