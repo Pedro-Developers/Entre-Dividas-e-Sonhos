@@ -3,7 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+@media (max-width: 768px) {
+    body {
+        background-size: cover;
+    }
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -11,7 +15,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-background-image: url("imagem/output-onlinegiftools.gif");      
+background-color: #000000;  
     background-position: center;     
     background-repeat: no-repeat;    
     background-attachment: fixed;    
@@ -47,15 +51,6 @@ h1, h2, h3, h4, h5, h6, p {
     justify-content: center;
     gap: 20px;
 }
-.menu-jogo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 20px;
-}
-
 .opcoes-plataforma {
     display: flex;
     align-items: center;
@@ -91,7 +86,7 @@ h1, h2, h3, h4, h5, h6, p {
     display: none !important;
 }
 
-.menu-jogo, .painel {
+.painel {
     background-color: rgba(5, 15, 10, 0.95);
     border: 2px solid #6bc995;
     border-radius: 10px;
@@ -110,67 +105,72 @@ h1, h2, h3, h4, h5, h6, p {
     box-shadow: 0 0 15px rgba(107, 201, 149, 0.4);
 }
 
-.menu-jogo button {
-    margin: 8px;
-    padding: 10px 18px;
-    border: none;
-    box-shadow: 0 0 15px rgba(107, 201, 149, 0.4);
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    background: #6bc995;
-    color: white;
-    font-size: 14px;
-    transition: background 0.2s;
- font-family: 'Courier New', Courier, monospace;
+/* --- Jogo --- */
+:root{--g:#2ecc71;--y:#c8f542;--d:#04140a;--w:#f4f4ee}
+
+html,body{
+    height:100%;
+    margin:0;
+    background:#000;
+    overflow:hidden;
+    font-family:"Courier New",monospace;font-weight:bold;
+    color:var(--w)}
+#vp{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+
+#w{width:640px;height:360px;position:relative;transform-origin:center;flex:none;overflow:hidden;background:#000}
+
+canvas{position:absolute;inset:0;width:640px;height:360px;image-rendering:pixelated}
+
+#crt{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);box-shadow:inset 0 0 60px rgba(0,0,0,.6)}
+
+.box{position:absolute;background:rgba(4,20,10,.92);border:2px solid var(--g);padding:6px 8px;font-size:11px;line-height:1.35}
+
+#hud{left:6px;top:6px;width:170px;display:none}
+
+#hud b{color:var(--y)}
+
+#dlg{left:20px;right:20px;bottom:12px;height:70px;display:none;font-size:13px}
+
+#dlg .n{color:var(--y);margin-bottom:3px}#dlg .h{position:absolute;right:8px;bottom:4px;font-size:10px;color:var(--g)}
+
+#ov{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:rgba(0,10,4,.55);text-align:center}
+
+#ov h1{margin:0 0 8px;font-size:30px;color:var(--y);text-shadow:2px 0 #f0f,-2px 0 #0ff,0 0 14px var(--g);letter-spacing:2px}
+
+#ov p{margin:0 30px;font-size:12px;max-width:480px}
+
+button{font:inherit;font-size:13px;color:var(--w);background:var(--d);border:2px solid var(--g);padding:5px 14px;cursor:pointer}
+
+button:hover:not(:disabled){background:var(--g);color:#000}button:disabled{opacity:.4;cursor:default}
+
+#ov button{width:190px}
+
+#shop{left:60px;top:30px;width:500px;display:none}
+
+#shop h2{margin:0 0 5px;font-size:14px;color:var(--y)}
+
+.row{display:flex;align-items:center;gap:8px;margin:3px 0;font-size:12px}
+
+.row span:first-child{flex:1}.row i{font-style:normal;font-size:10px;color:var(--y);width:62px}.row em{width:90px;text-align:right;font-style:normal}
+
+.row button{font-size:11px;padding:2px 8px;width:76px}
+
+#notice{
+    color:#ff6;font-size:11px;min-height:14px
 }
 
-.menu-jogo button:hover {
-    background: #22c285;
+#cmd{
+    left:0;right:0;bottom:0;height:86px;display:none;border-width:2px 0 0
 }
 
-/* --- ESTILO DA CAIXA DE LORE / RPG --- */
-.texto-rpg {
-    background-color: rgba(5, 15, 10, 0.95);
-    border: 2px solid #6bc995;
-    border-radius: 10px;
-    padding: 20px;
-    width: 100%;
-    max-width: 420px;
-    min-height: 140px;
-    color: #ffffff;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 1.5;
-    text-align: left;
-    white-space: pre-wrap; /* Preserva as quebras de linha \n */
-    margin: 15px 0;
-    box-shadow: 0 0 15px rgba(107, 201, 149, 0.4);
+#cmd .bs{
+    display:flex;gap:6px;margin-top:6px}#cmd .bs button{flex:1;font-size:12px;padding:5px 2px
+    }
+
+#log{
+    height:30px;font-size:12px
 }
 
-/* --- MODO HISTÓRIA (FUNDO 100% ESCURO) --- */
-body.modo-historia::before {
-    background-color: #000000 !important;
-    z-index: 1;
+.small{
+    font-size:10px;color:var(--g)
 }
-
-body.modo-historia .app {
-    position: relative;
-    z-index: 2;
-}
-
-#menu-novo-jogo {
-    background: transparent !important;
-    box-shadow: none !important;
-}
-
-#jogo-rodando {
-    background: transparent !important;
-    box-shadow: none !important;
-background-image: url("");      
-    background-position: center;     
-    background-repeat: no-repeat;    
-    background-attachment: fixed;    
-    background-size: cover;
-}   
