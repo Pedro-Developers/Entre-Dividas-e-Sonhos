@@ -96,7 +96,41 @@ function avancarIntro() {
             btnAvancar.textContent = "Entrar na Escola (Iniciar Demo)";
         }
     } else {
-        alert("Fim da Introdução!\n\nPassando o controle para o motor 2D do GameMaker (Mundo Linear + Batalhas por Turno).");
-        voltarPrincipal(); 
+        // Final da introdução, iniciar o jogo
+        document.body.classList.remove('modo-historia');
+        abrirMenu('Jogo-rodando');
+        iniciarDemo();
     }
+}
+/* ===================================================
+   Jogo 2D Linear + Batalha por Turno (Demo)
+   =================================================== */
+let andar = 0; // Variável global para controlar o movimento do personagem
+let interagir = false; // Variável global para controlar a interação com NPCs ou objetos
+const jogoRodando = document.getElementById('Jogo-rodando');
+let playerX = 0; // Posição X do personagem
+let playerY = 0; // Posição Y do personagem
+let player;
+
+document.addEventListener('keydown'), (event) => { // Movimentação... Sem sprite e object do player, apenas um quadrado representando o personagem (que foda...)
+  if (jogoRodando && !jogoRodando.classList.contains('hidden')) {
+    switch (event.key) {
+      case 'ArrowLeft':
+        playerX = Math.max(0, playerX - 1);
+        break;
+      case 'ArrowRight':
+        playerX = Math.min(9, playerX + 1);
+        break;
+    case 'ArrowUp':
+        playerY = Math.max(0, playerY - 1);
+        break;
+        case 'ArrowDown':
+        playerY = Math.min(9, playerY + 1);
+        break;
+      }
+   if (jogoRodando) {
+    player.style.left = `${playerX * 50}px`;
+    player.style.top = `${playerY * 50}px`; 
+  } 
+  }
 }

@@ -51,6 +51,12 @@
             <label for="inputVolume"><h4>Volume:</h4></label>
             <input type="range" id="inputVolume" min="0" max="100" value="50">
             <button type="button" onclick="voltarPrincipal()" class="btn-voltar">Voltar</button>
+            <label><h4>Graficos:</h4></label>
+            <select id="inputGraficos">
+                <option value="baixo">Baixo</option>
+                <option value="medio" selected>Médio</option>
+                <option value="alto">Alto</option>
+            </select>
         </section>
 
         <section id="menu-creditos" class="menu-jogo painel hidden">
@@ -70,6 +76,13 @@
                 <button type="button" id="btn-avancar-intro" onclick="avancarIntro()">Continuar</button>
                 <button type="button" onclick="voltarPrincipal()" class="btn-voltar">Pular</button>
             </div>
+        </section>
+        <section>
+            <div id="Jogo-rodando" class="menu-jogo painel hidden">
+             <h5>Objetivo: Vá para a cozinha</h5>
+            <img src="imagem/sprite/db_player.ase" alt="Jogo Rodando" class="jogo-rodando">
+            </div>
+
         </section>
     </main>
 
