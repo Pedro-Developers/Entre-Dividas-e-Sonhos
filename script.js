@@ -1,47 +1,21 @@
-/* ===================================================
-   GERENCIAMENTO DE PLATAFORMA E MENUS
-   =================================================== */
+/* ===== Seleção de plataforma -> abre o jogo ===== */
 const plataformas = document.querySelectorAll('input[name="plataforma"]');
 const seletorPlataforma = document.getElementById('seletor-plataforma');
-const menuPrincipal = document.getElementById('vp'); 
-const plataformaSelecionadaTexto = document.getElementById('plataforma-selecionada');
+const jogoVP = document.getElementById('vp');
+let plataforma = null;
+const joy = {x:0, y:0}; // analógico virtual (-1..1) // "computador" ou "celular"
 
-// Clique na escolha de plataforma (Computador / Celular)
 plataformas.forEach((radio) => {
   radio.addEventListener('change', () => {
     if (!radio.checked) return;
-
-    const plataformaSelecionada = radio.value;
-    const nomePlataforma = plataformaSelecionada === 'computador' ? 'Computador' : 'Celular';
-
+    plataforma = radio.value;
     seletorPlataforma.classList.add('hidden');
-    menuPrincipal.classList.remove('hidden'); 
-    plataformaSelecionadaTexto.textContent = nomePlataforma; 
+    jogoVP.classList.remove('hidden');
+    if (plataforma === 'celular') document.getElementById('touch').classList.remove('hidden');
+    fit();   // recalcula a escala agora que o jogo está visível
+    menu();  // mostra o menu do jogo (NOVO JOGO, CONTINUAR...)
   });
 });
-
-// Função para abrir menus e ocultar os outros
-function abrirMenu(idDoMenu) {
-  const paineis = document.querySelectorAll('.painel');
-  paineis.forEach((painel) => painel.classList.add('hidden'));
-
-  const menuAlvo = document.getElementById(idDoMenu);
-  if (menuAlvo) {
-    menuAlvo.classList.remove('hidden');
-  }
-}
-
-// Voltar para o menu principal
-function voltarPrincipal() {
-  document.body.classList.remove('modo-historia');
-  abrirMenu('menu-principal');
-}
-
-// Sair do jogo
-function fecharJogo() {
-  alert("Obrigado por jogar!");
-  window.close(); 
-}
 
 "use strict";
 const $=s=>document.querySelector(s),cv=$("#c"),cx=cv.getContext("2d"),W=640,H=360;
@@ -203,8 +177,8 @@ function render(dt){
 }
 let last=0;
 function loop(ts){const dt=Math.min(.05,(ts-last)/1000||0);last=ts;
- if(mode==="play"&&S){let dx=(keys.d?1:0)-(keys.a?1:0),dy=(keys.s?1:0)-(keys.w?1:0);
-  if(dx||dy){const l=Math.hypot(dx,dy);S.x=Math.max(10,Math.min(630,S.x+dx/l*75*dt));S.y=Math.max(184,Math.min(345,S.y+dy/l*75*dt))}}
+ if(mode==="play"&&S){let dx=(keys.d?1:0)-(keys.a?1:0)+joy.x,dy=(keys.s?1:0)-(keys.w?1:0)+joy.y;
+  if(dx||dy){const l=Math.hypot(dx,dy);S.x=Math.max(10,Math.min(630,S.x+dx/Math.max(1,l)*75*dt));S.y=Math.max(184,Math.min(345,S.y+dy/Math.max(1,l)*75*dt))}}
  if(S&&mode==="fonte"&&S.notes.fd&&fonteT<99)fonteT=99;
  render(dt);requestAnimationFrame(loop)}
 /* ---------- Entrada ---------- */
@@ -217,4 +191,31 @@ addEventListener("keydown",e=>{const k=e.key.toLowerCase();
 addEventListener("keyup",e=>{keys[e.key.toLowerCase()]=false});
 function fit(){const s=Math.min(innerWidth/W,innerHeight/H);$("#w").style.transform="scale("+s+")"}
 addEventListener("resize",fit);fit();
-S=fresh();menu();requestAnimationFrame(loop);
+S=fresh();requestAnimationFrame(loop); // menu() só é chamado após escolher a plataforma
+
+/* ===== Controles de toque ===== */
+(function(){
+  const stick=document.getElementById('stick'),knob=document.getElementById('knob');
+  const bE=document.getElementById('bE'),bEsc=document.getElementById('bEsc');
+  const R=45; let pid=null;
+  function move(e){
+    const b=stick.getBoundingClientRect();
+    let vx=e.clientX-(b.left+b.width/2), vy=e.clientY-(b.top+b.height/2);
+    const m=Math.hypot(vx,vy); if(m>R){vx*=R/m;vy*=R/m}
+    knob.style.transform='translate('+vx+'px,'+vy+'px)';
+    const dz=0.2; joy.x=Math.abs(vx/R)<dz?0:vx/R; joy.y=Math.abs(vy/R)<dz?0:vy/R;
+  }
+  function stop(){pid=null;joy.x=joy.y=0;knob.style.transform='translate(0,0)'}
+  stick.addEventListener('pointerdown',e=>{pid=e.pointerId;stick.setPointerCapture(pid);move(e);e.preventDefault()});
+  stick.addEventListener('pointermove',e=>{if(e.pointerId===pid)move(e)});
+  stick.addEventListener('pointerup',stop);stick.addEventListener('pointercancel',stop);
+  const tap=k=>dispatchEvent(new KeyboardEvent('keydown',{key:k,bubbles:true}));
+  bE.addEventListener('pointerdown',e=>{e.preventDefault();tap('e')});
+  bEsc.addEventListener('pointerdown',e=>{e.preventDefault();tap('Escape')});
+  document.addEventListener('contextmenu',e=>{if(plataforma==='celular')e.preventDefault()});
+  // mostra só o que faz sentido em cada modo
+  setInterval(()=>{
+    stick.classList.toggle('off',mode!=='play'); bEsc.classList.toggle('off',mode!=='play'&&mode!=='paused');
+    bE.classList.toggle('off',mode!=='play'&&mode!=='dialog'); if(mode!=='play')stop();
+  },100);
+})();
